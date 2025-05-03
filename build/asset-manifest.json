@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Burnout_MBI_GS/static/css/main.65b9c6c2.css",
+    "main.js": "/Burnout_MBI_GS/static/js/main.c72c40bb.js",
+    "index.html": "/Burnout_MBI_GS/index.html",
+    "main.65b9c6c2.css.map": "/Burnout_MBI_GS/static/css/main.65b9c6c2.css.map",
+    "main.c72c40bb.js.map": "/Burnout_MBI_GS/static/js/main.c72c40bb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.65b9c6c2.css",
+    "static/js/main.c72c40bb.js"
+  ]
+}
