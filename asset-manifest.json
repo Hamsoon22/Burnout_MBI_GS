@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Burnout_MBI_GS/static/css/main.7103a9d5.css",
-    "main.js": "/Burnout_MBI_GS/static/js/main.a9cad9a5.js",
-    "index.html": "/Burnout_MBI_GS/index.html",
-    "main.7103a9d5.css.map": "/Burnout_MBI_GS/static/css/main.7103a9d5.css.map",
-    "main.a9cad9a5.js.map": "/Burnout_MBI_GS/static/js/main.a9cad9a5.js.map"
+    "main.css": "/static/css/main.65b9c6c2.css",
+    "main.js": "/static/js/main.5587ba25.js",
+    "index.html": "/index.html",
+    "main.65b9c6c2.css.map": "/static/css/main.65b9c6c2.css.map",
+    "main.5587ba25.js.map": "/static/js/main.5587ba25.js.map"
   },
   "entrypoints": [
-    "static/css/main.7103a9d5.css",
-    "static/js/main.a9cad9a5.js"
+    "static/css/main.65b9c6c2.css",
+    "static/js/main.5587ba25.js"
   ]
 }
