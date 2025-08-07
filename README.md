@@ -1,43 +1,42 @@
-# Burnout_MBI_GS
-This is project is online burnout questions for mental health (MBI-GS)
-# Burnout MBI-GS Questionnaire (번아웃 측정 설문)
+# 🧠 Rumination Survey (루미네이션 설문)
 
-이 프로젝트는 Maslach Burnout Inventory-General Survey (MBI-GS)를 기반으로 한 번아웃 자가진단 웹 애플리케이션입니다.
+이 프로젝트는 반추(rumination) 경향을 측정하는 설문 도구입니다.  
+사용자는 "나는 우울할 때..."라는 문장을 시작으로 22개의 문항에 답변하고,  
+그 결과로 T-점수 기반 피드백을 받을 수 있습니다.
 
-## 🔗 데모 링크
+---
 
-[👉 웹사이트 바로가기](https://hamsoon22.github.io/Burnout_MBI_GS)
-
-## 📋 기능 소개
-
-- MBI-GS 설문 구성 (총 22문항)
-- 설문 결과를 실시간으로 시각화
-- 세 가지 범주 결과 제공:
-  - 정서적 고갈 (Exhaustion)
-  - 냉소 (Depersonalization)
-  - 직무 효능감 (Efficacy)
-- 총합 기반 점수 산출 및 결과 안내
-
-## 🛠️ 기술 스택
+## 🔍 사용 기술
 
 - React
-- React Router
-- JavaScript (ES6)
-- HTML/CSS
+- React Router v6
+- Material-UI (MUI)
+- GitHub Pages 배포 (`gh-pages`)
 
+---
 
-## 🚀 배포
+## ✨ 기능
 
-- GitHub Pages를 통해 정적 페이지로 배포
-- 메인 브랜치 기준 자동 배포
+- 우울 시 사고/행동에 대한 22개 문항 설문
+- 총점 기반 반추적 반응 점수 + 세부 척도
+  - 우울형 반추 (Depressive Rumination)
+  - 숙고 (Reflective Pondering)
+  - 자책 (Brooding)
+- T-score 계산 (Shin et al., 2015 기반)
+- 모바일 친화적 UI (Material-UI)
+- 결과 페이지 → "다시하기" 버튼으로 설문 초기화
 
-## 📑 참고
+---
 
-- Maslach, C., Jackson, S. E., & Leiter, M. P. (1996). MBI: The Maslach Burnout Inventory Manual (3rd ed.)
+## 📦 설치 및 실행
 
-## 👩🏻‍💻 제작자
+```bash
+# 설치
+npm install
 
-- **Hamsoon22 (Yeun Kim)**  
-- 이메일: yeunkim1230@gmail.com
+# 개발 서버 실행
+npm start
 
-
+# 빌드 및 배포
+npm run build
+npm run deploy

@@ -1,77 +1,67 @@
-// ResultPage.jsx
-import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import "./index.css";
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import {
+  Container, Typography, Paper, Button, Grid
+} from '@mui/material';
 
-const translations = {
-  ko: {
-    noResult: "❗ 설문 결과가 없습니다",
-    prompt: "홈페이지에서 설문을 먼저 제출해 주세요.",
-    backHome: "홈으로 돌아가기",
-    title: "📊MBI GS 설문 결과",
-    exhaustion: "소진 점수 평균",
-    depersonal: "비인격화 점수 평균",
-    efficacy: "효능감 점수",
-    retry: "다시 하기"
-  },
-  en: {
-    noResult: "❗ No survey result found",
-    prompt: "Please submit the survey on the homepage first.",
-    backHome: "Return to Home",
-    title: "📊MBI GS Survey Result",
-    exhaustion: "Exhaustion Mean Score",
-    depersonal: "Depersonalization Mean Score",
-    efficacy: "Efficacy Score",
-    retry: "Try Again"
-  },
-  my: {
-    noResult: "❗ စစ်တမ်းရလဒ်မရှိပါ",
-    prompt: "ပင်မစာမျက်နှာတွင် စစ်တမ်းဖြည့်ပေးပါ။",
-    backHome: "မူလသို့ပြန်မည်",
-    title: "📊MBI GS စစ်တမ်းရလဒ်",
-    exhaustion: "ပင်ပန်းနွမ်းနယ်မှု အားဖြည့်မှတ်",
-    depersonal: "မတည်ကြည်မှု အားဖြည့်မှတ်",
-    efficacy: "ထိရောက်မှု အားဖြည့်မှတ်",
-    retry: "ထပ်မံလုပ်ဆောင်မည်"
-  }
+const depressiveItems = [1,2,3,5,6,8,9,17,19];
+const reflectiveItems = [7,11,12,20,21,22];
+const broodingItems = [4,10,13,14,15,16,18];
+
+const T_SCORE_PARAMS = {
+  total: { mean: 40.73, sd: 13.85 },
+  depressive: { mean: 16.25, sd: 5.69 },
+  reflective: { mean: 10.38, sd: 4.11 },
+  brooding: { mean: 14.13, sd: 5.19 },
 };
 
+function calcSum(indices, responses) {
+  return indices.reduce((sum, i) => sum + (responses[i - 1] || 0), 0);
+}
+
+function calcT(sum, mean, sd) {
+  return Math.round(50 + 10 * ((sum - mean) / sd));
+}
+
 export default function ResultPage() {
-  const { state } = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
+  const searchParams = new URLSearchParams(location.search);
+  const raw = searchParams.get("data");
 
-  const lang = state?.lang || "ko";
-  const t = translations[lang];
+  if (!raw) return <Typography>결과 데이터를 찾을 수 없습니다.</Typography>;
 
-  if (!state) {
-    return (
-      <div className="burnout-container">
-        <h2>{t.noResult}</h2>
-        <p>{t.prompt}</p>
-        <div className="burnout-button-center">
-          <button className="burnout-button" onClick={() => navigate("/")}>{t.backHome}</button>
-        </div>
-      </div>
-    );
-  }
+  const responses = JSON.parse(decodeURIComponent(raw));
 
-  const { exhaustionMean, depersonalMean, efficacyMean, exhaustionT, depersonalT, efficacyT } = state;
+  const totalScore = responses.reduce((a, b) => a + (b || 0), 0);
+  const dep = calcSum(depressiveItems, responses);
+  const ref = calcSum(reflectiveItems, responses);
+  const bro = calcSum(broodingItems, responses);
+
+  const tTotal = calcT(totalScore, T_SCORE_PARAMS.total.mean, T_SCORE_PARAMS.total.sd);
+  const tDep = calcT(dep, T_SCORE_PARAMS.depressive.mean, T_SCORE_PARAMS.depressive.sd);
+  const tRef = calcT(ref, T_SCORE_PARAMS.reflective.mean, T_SCORE_PARAMS.reflective.sd);
+  const tBro = calcT(bro, T_SCORE_PARAMS.brooding.mean, T_SCORE_PARAMS.brooding.sd);
 
   return (
-    <div className="burnout-container">
-      <main className="burnout-main">
-        <section className="burnout-section">
-          <h2 className="burnout-title">{t.title}</h2>
-          <div className="burnout-result-box">
-            <p className="burnout-result-text">{t.exhaustion}: {exhaustionMean.toFixed(2)} / T= {exhaustionT.toFixed(1)}</p>
-            <p className="burnout-result-text">{t.depersonal}: {depersonalMean.toFixed(2)} / T= {depersonalT.toFixed(1)}</p>
-            <p className="burnout-result-text">{t.efficacy}: {efficacyMean.toFixed(2)} / T= {efficacyT.toFixed(1)}</p>
-          </div>
-          <div className="burnout-button-center">
-            <button className="burnout-button" onClick={() => navigate("/")}>{t.retry}</button>
-          </div>
-        </section>
-      </main>
-    </div>
+    <Container maxWidth="sm" sx={{ py: 4 }}>
+      <Typography variant="h6" gutterBottom>📊 피드백 결과 (T Score)</Typography>
+      <Paper sx={{ p: 3, mt: 2 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}><b>반추적 반응 (총점)</b>: {tTotal}</Grid>
+          <Grid item xs={12}><b>우울형 반추 (Depressive Rumination)</b>: {tDep}</Grid>
+          <Grid item xs={12}><b>숙고 (Reflective Pondering)</b>: {tRef}</Grid>
+          <Grid item xs={12}><b>자책 (Brooding)</b>: {tBro}</Grid>
+        </Grid>
+      </Paper>
+
+      <Button
+      variant="outlined"
+      fullWidth
+      onClick={() => navigate('/', { replace: true })} // ✅ replace 옵션도 같이 넣는 걸 추천
+    >
+      다시 하기
+    </Button>
+    </Container>
   );
 }

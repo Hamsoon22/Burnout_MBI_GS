@@ -1,9 +1,12 @@
 {
-  "name": "burnout-survey",
+  "name": "rumination-survey",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://hamsoon22.github.io/Burnout_MBI_GS",
+  "homepage": "https://hamsoon22.github.io/Rumination",
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^7.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2",

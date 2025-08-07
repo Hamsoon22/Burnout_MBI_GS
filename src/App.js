@@ -1,17 +1,15 @@
-import React from "react";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import BurnoutSurvey from "./BurnoutSurvey";
-import ResultPage from "./ResultPage";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import RuminationSurvey from './RuminationSurvey';
+import ResultPage from './ResultPage';
 
-function App() {
+export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<BurnoutSurvey />} />
+        <Route path="/" element={<RuminationSurvey />} />
         <Route path="/result" element={<ResultPage />} />
       </Routes>
     </Router>
   );
 }
-
-export default App;
